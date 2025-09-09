@@ -9,7 +9,6 @@ function createElement(name: string | Function, props: { [id: string]: string | 
             }
             if (typeof value === 'function') return `${key}="(${value.toString()})()"`
             if (key === "className") return `class=${value}`;
-            // if (key === "value") return `value="${value}"`;
             else return `${key}="${value}"`;
         })
         .join(' ');

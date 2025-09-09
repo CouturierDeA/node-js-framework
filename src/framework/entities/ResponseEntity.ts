@@ -39,24 +39,6 @@ export class ResponseEntity {
         return this;
     }
 
-    clearHeaders = () => {
-        this.headers = {};
-        return this;
-    }
-
-    setStatus = (status: number) => {
-        this.status = status;
-        return this;
-    }
-
-    protected setBody = (body: any) => {
-        this.body = body
-    }
-
-    send() {
-        this.released = true;
-    }
-
     write = (...args: Partial<WrightStreamArgs>) => {
         const stream = this.stream || this.res;
         stream.write(...args)

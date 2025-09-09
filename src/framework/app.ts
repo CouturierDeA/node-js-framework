@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import {RequestParams, routeMatcher} from "./core/route-matcher";
 import {DiContainer} from "./di/container";
 import {
@@ -22,10 +23,6 @@ import {
 import {Sandbox} from "./core/http-utils/http-utils";
 
 export interface DependencyComponent<T extends { new(...args: any[]): {} } = any> {
-    options?: {
-        lazy?: boolean
-        isSingleton?: boolean
-    }
     constructor: T
 }
 

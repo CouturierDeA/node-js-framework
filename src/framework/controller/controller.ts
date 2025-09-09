@@ -1,4 +1,3 @@
-import 'reflect-metadata'
 import {Sandbox} from "../core/http-utils/http-utils";
 import {ControllerDecorator} from './controller/controller'
 import {
