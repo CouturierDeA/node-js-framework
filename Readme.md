@@ -1,6 +1,5 @@
 # Custom Node.js Framework Prototype
 
-
 This project is a prototype of a Node.js framework developed using TypeScript and decorators.
 Inspired by frameworks like Java Spring and NestJS, it explores how to leverage decorators and metadata in TypeScript
 to build a modular and extensible architecture.
@@ -15,12 +14,12 @@ between client and server.
 Although this project is still in a rough, experimental stage with several architectural gaps and "leaking" abstractions,
 it served as a valuable learning experience in designing and implementing such systems.
 
-Feel free to explore and contribute! The code is a work-in-progress, with many areas for improvement and refinement.
+The code is a work-in-progress, with many areas for improvement and refinement.
 
 
 1. install dependencies (if not installed)
 ``` bash
-$ yarn install 
+$ npm install 
 ```
 
 2. Use existing, or generate a self-signed certificate. Here`s an example:
@@ -36,10 +35,10 @@ openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
 
 2. run tsc
 ``` bash
-$ yarn compile 
+$ npm run compile 
 ```
 
 3. open new terminal and serve app in dev mode (or use concurrently)
 ``` bash
-$ yarn serve 
+$ npm run serve 
 ```
