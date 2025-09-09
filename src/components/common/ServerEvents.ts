@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import { Component} from "../../framework/component";
+import {Component} from "../../framework/component";
 import {ResponseEntity} from "../../framework/entities/ResponseEntity";
 
 @Component()
