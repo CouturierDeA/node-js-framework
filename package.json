@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@types/jest": "^30.0.0",
+    "reflect-metadata": "^0.2.2",
     "ts-jest": "^29.4.1"
   },
   "engines": {
