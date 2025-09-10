@@ -1,6 +1,4 @@
-import {
-    constants
-} from "http2";
+import { constants } from 'http2';
 
 const {
     HTTP_STATUS_NOT_FOUND,
@@ -19,30 +17,18 @@ export class ApiException extends Error {
     status: number;
 
     static internal(message: string) {
-        return new ApiException(
-            message,
-            HTTP_STATUS_INTERNAL_SERVER_ERROR
-        )
+        return new ApiException(message, HTTP_STATUS_INTERNAL_SERVER_ERROR);
     }
 
     static userError(message: string) {
-        return new ApiException(
-            message,
-            240
-        )
+        return new ApiException(message, 240);
     }
 
     static notFound(message: string) {
-        return new ApiException(
-            message,
-            HTTP_STATUS_NOT_FOUND
-        )
+        return new ApiException(message, HTTP_STATUS_NOT_FOUND);
     }
 
     static notAuthorized(message: string) {
-        return new ApiException(
-            message,
-            HTTP_STATUS_UNAUTHORIZED
-        )
+        return new ApiException(message, HTTP_STATUS_UNAUTHORIZED);
     }
 }

@@ -1,31 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "target": "esNext",
-    "moduleResolution": "node",
-    "erasableSyntaxOnly": true,
-    "sourceMap": false,
-    "outDir": "dist",
-    "baseUrl": "./",
-    "jsx": "react",
-    "reactNamespace": "GSX",
-    "types": [
-      "jest",
-      "node"
-    ],
-  },
-  "exclude": [
-    "node_modules",
-    "tests",
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ],
-  "include": [
-    "src/app.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "target": "esNext",
+        "moduleResolution": "node",
+        "erasableSyntaxOnly": true,
+        "sourceMap": false,
+        "outDir": "dist",
+        "baseUrl": "./",
+        "jsx": "react",
+        "reactNamespace": "GSX",
+        "types": ["jest", "node"]
+    },
+    "exclude": ["node_modules", "tests", "**/*.spec.ts", "**/*.spec.tsx"],
+    "include": ["src/app.ts", "src/**/*.ts", "src/**/*.tsx"]
 }

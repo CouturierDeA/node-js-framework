@@ -16,15 +16,15 @@ it served as a valuable learning experience in designing and implementing such s
 
 The code is a work-in-progress, with many areas for improvement and refinement.
 
-
 1. install dependencies (if not installed)
-``` bash
-$ npm install 
+
+```bash
+$ npm install
 ```
 
 2. Use existing, or generate a self-signed certificate. Here`s an example:
 
-``` bash
+```bash
 mkdir -p cert
 cd cert
 openssl genrsa -out server.key 2048
@@ -34,11 +34,13 @@ openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
 ```
 
 2. run tsc
-``` bash
-$ npm run compile 
+
+```bash
+$ npm run compile
 ```
 
 3. open new terminal and serve app in dev mode (or use concurrently)
-``` bash
-$ npm run serve 
+
+```bash
+$ npm run serve
 ```

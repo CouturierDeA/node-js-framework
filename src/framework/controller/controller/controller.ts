@@ -1,40 +1,41 @@
-import {CoreRoute} from "../../app";
+import { CoreRoute } from '../../app';
 import {
     defineControllerInstanceCreator,
-    defineControllerMeta
-} from "../../utils/metadata";
-import {instanceCreator} from "../../utils/instance-creator";
-import {setupExecutorArguments} from "../controller";
+    defineControllerMeta,
+} from '../../utils/metadata';
+import { instanceCreator } from '../../utils/instance-creator';
+import { setupExecutorArguments } from '../controller';
 
-export function ControllerDecorator(
-    options?: {
-        url?: string
-    }
-) {
-    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
+export function ControllerDecorator(options?: { url?: string }) {
+    return function <T extends { new (...args: any[]): {} }>(constructor: T) {
         defineControllerMeta(constructor, {
-            url: options?.url || ''
-        })
-        defineControllerInstanceCreator(constructor, instanceCreator(
+            url: options?.url || '',
+        });
+        defineControllerInstanceCreator(
             constructor,
-            (instance, propertyKey, args) => {
+            instanceCreator(constructor, (instance, propertyKey, args) => {
                 const exec = (instance[propertyKey] as Function).bind(instance);
-                instance[propertyKey] = setupExecutorArguments<T>(instance, propertyKey, exec, args)
-            }
-        ))
+                instance[propertyKey] = setupExecutorArguments<T>(
+                    instance,
+                    propertyKey,
+                    exec,
+                    args
+                );
+            })
+        );
         return constructor;
-    }
+    };
 }
 
 export type RouteCtrlInitialized<T> = {
-    routes: CoreRoute<T>[],
-    ctrlInstance: {},
-}
+    routes: CoreRoute<T>[];
+    ctrlInstance: {};
+};
 
 export type RouteCtrl<T> = {
-    init: () => Promise<RouteCtrlInitialized<T>>,
-    router: CoreRoute<T>[],
-    name: string,
-    constructor: T,
-    url: string
-}
+    init: () => Promise<RouteCtrlInitialized<T>>;
+    router: CoreRoute<T>[];
+    name: string;
+    constructor: T;
+    url: string;
+};

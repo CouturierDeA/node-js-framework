@@ -2,26 +2,26 @@ import {
     Controller,
     GetMapping,
     OptionsMapping,
-    PathVariable, QueryParam,
+    PathVariable,
+    QueryParam,
     Response,
-} from "../../framework/controller/controller";
+} from '../../framework/controller/controller';
 
-import {join} from "node:path";
+import { join } from 'node:path';
 
-import GSX from "../../framework/gsx";
+import GSX from '../../framework/gsx';
 
-import {ResponseEntity} from "../../framework/entities/ResponseEntity";
-import {GoTo, HtmlPage} from "../../templates/default";
+import { ResponseEntity } from '../../framework/entities/ResponseEntity';
+import { GoTo, HtmlPage } from '../../templates/default';
 
-const STATIC = join(__dirname, '../../../static')
+const STATIC = join(__dirname, '../../../static');
 
 @Controller({
     url: '/',
 })
 export class CommonController {
     @OptionsMapping('/**')
-    serveOptions() {
-    }
+    serveOptions() {}
 
     @GetMapping(/(.*)\.(js|css|html|jpeg|jpg|png|svg|webp|gif)$/g)
     async getMime(
@@ -33,23 +33,31 @@ export class CommonController {
 
     @GetMapping('/')
     async getMain() {
-        return <HtmlPage title={'Starting page'}>
-            <h1>Starting page</h1>
-            <GoTo to={'/todo'}>Todo</GoTo>
-            <GoTo to={'/test-multiple-query-params?test=1,2,3,4,5&id=6,7,8,9'}>Test query params</GoTo>
-        </HtmlPage>
+        return (
+            <HtmlPage title={'Starting page'}>
+                <h1>Starting page</h1>
+                <GoTo to={'/todo'}>Todo</GoTo>
+                <GoTo
+                    to={'/test-multiple-query-params?test=1,2,3,4,5&id=6,7,8,9'}
+                >
+                    Test query params
+                </GoTo>
+            </HtmlPage>
+        );
     }
 
     @GetMapping('/test-multiple-query-params')
     async todoPageView(
         @QueryParam() test?: number[],
-        @QueryParam() id?: number[],
+        @QueryParam() id?: number[]
     ) {
-        return <HtmlPage title={'Test multiple query params'}>
-            <h3>Queries:</h3>
-            <div>test {test?.join(',')}</div>
-            <div>id {id?.join(',')}</div>
-        </HtmlPage>
+        return (
+            <HtmlPage title={'Test multiple query params'}>
+                <h3>Queries:</h3>
+                <div>test {test?.join(',')}</div>
+                <div>id {id?.join(',')}</div>
+            </HtmlPage>
+        );
     }
 
     // @Created()

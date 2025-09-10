@@ -1,87 +1,88 @@
-import {TodoService} from "../../components/todo/TodoService";
+import { TodoService } from '../../components/todo/TodoService';
 import {
     Controller,
     GetMapping,
     PathVariable,
     PostMapping,
     FormBody,
-} from "../../framework/controller/controller";
-import {Autowired} from "../../framework/component/";
+} from '../../framework/controller/controller';
+import { Autowired } from '../../framework/component/';
 import GSX from '../../framework/gsx';
-import {ErrorPage, GoTo} from '../../templates/default';
-import {TodoItem, TodoList} from '../../templates/todo-list';
-import {TodoForm} from '../../templates/todo-form';
-import {TodoDto} from '../../dto/TodoDto';
-import {ITodo} from '../../structs/todo/todo';
-import {TodoPage} from "../../templates/todo-page";
+import { ErrorPage, GoTo } from '../../templates/default';
+import { TodoItem, TodoList } from '../../templates/todo-list';
+import { TodoForm } from '../../templates/todo-form';
+import { TodoDto } from '../../dto/TodoDto';
+import { ITodo } from '../../structs/todo/todo';
+import { TodoPage } from '../../templates/todo-page';
 
 @Controller({
     url: '/todo',
 })
 export class ViewTodoController {
     @Autowired()
-    todoService: TodoService
+    todoService: TodoService;
 
     @GetMapping('')
     async todoListPageView() {
-        const todoList = await this.todoService.getTodoList() || [];
+        const todoList = (await this.todoService.getTodoList()) || [];
         return (
             <TodoPage title={'Todo Page'}>
-                <TodoList todoList={todoList}/>
+                <TodoList todoList={todoList} />
                 <GoTo to={'/todo/add'}>Add New</GoTo>
             </TodoPage>
-        )
+        );
     }
 
     @GetMapping('{todoId}')
-    async getTodoPage(
-        @PathVariable() todoId: number,
-    ) {
+    async getTodoPage(@PathVariable() todoId: number) {
         try {
             const todo = await this.todoService.getTodo(todoId);
             return (
                 <TodoPage title={todo.title}>
                     <TodoItem todo={todo}>{todo.title}</TodoItem>
                     <a href={`/todo/edit/${todo.id}`}>Edit</a>
-                    <GoTo to={'/todo'}/>
+                    <GoTo to={'/todo'} />
                 </TodoPage>
-            )
+            );
         } catch (e: unknown) {
             return (
                 <ErrorPage title={`Get Todo ${todoId} error`}>
-                    <GoTo to={'/todo'}/>
+                    <GoTo to={'/todo'} />
                 </ErrorPage>
-            )
+            );
         }
     }
 
     @GetMapping('/edit/{todoId}')
-    async getEditTodoPage(
-        @PathVariable() todoId: number,
-    ) {
+    async getEditTodoPage(@PathVariable() todoId: number) {
         try {
             const todo = await this.todoService.getTodo(todoId);
             return this.getTodoEditForm(todo);
         } catch (e: unknown) {
             return (
                 <ErrorPage title={`Get Todo ${todoId} error`}>
-                    <GoTo to={`/edit/${todoId}`}>{this.getErrorMessage(e)}</GoTo>
+                    <GoTo to={`/edit/${todoId}`}>
+                        {this.getErrorMessage(e)}
+                    </GoTo>
                 </ErrorPage>
-            )
+            );
         }
     }
 
     @PostMapping('/edit/{todoId}')
     async postEditTodoPage(
         @PathVariable() todoId: number,
-        @FormBody() todo: TodoDto,
+        @FormBody() todo: TodoDto
     ) {
         try {
-            const newTodo = await this.todoService.editTodo({...todo, id: todoId});
+            const newTodo = await this.todoService.editTodo({
+                ...todo,
+                id: todoId,
+            });
             const message = `Successfully updated ${todoId}`;
-            return this.getTodoEditForm(newTodo, message)
+            return this.getTodoEditForm(newTodo, message);
         } catch (e: unknown) {
-            return this.getTodoEditForm(todo, this.getErrorMessage(e))
+            return this.getTodoEditForm(todo, this.getErrorMessage(e));
         }
     }
 
@@ -91,15 +92,13 @@ export class ViewTodoController {
     }
 
     @PostMapping('/add')
-    async postAddTodo(
-        @FormBody() todo: TodoDto,
-    ) {
+    async postAddTodo(@FormBody() todo: TodoDto) {
         try {
             const newTodo = await this.todoService.addTodo(todo);
             const message = `Successfully added ${newTodo.id}`;
-            return this.getTodoEditForm(newTodo, message)
+            return this.getTodoEditForm(newTodo, message);
         } catch (e: unknown) {
-            return this.getTodoAddForm(todo, this.getErrorMessage(e))
+            return this.getTodoAddForm(todo, this.getErrorMessage(e));
         }
     }
 
@@ -112,19 +111,19 @@ export class ViewTodoController {
                     action={`/todo/edit/${todo.id}`}
                 />
                 {message && <div>{message}</div>}
-                <GoTo to={'/todo'}/>
+                <GoTo to={'/todo'} />
             </TodoPage>
-        )
+        );
     }
 
     getTodoAddForm<T extends ITodo>(todo?: T, message?: string) {
         return (
             <TodoPage title={'Add new todo'}>
-                <TodoForm todo={todo} action={`/todo/add`}/>
+                <TodoForm todo={todo} action={`/todo/add`} />
                 {message && <div>{message}</div>}
-                <GoTo to={'/todo'}/>
+                <GoTo to={'/todo'} />
             </TodoPage>
-        )
+        );
     }
 
     protected getErrorMessage(e: unknown) {

@@ -2,13 +2,15 @@ type Rule<T = string> = {
     validate: (value: T) => boolean;
     rule: string;
     propertyKey: string;
-}
+};
 
 function reflectValidator(target: Object, rule: Rule) {
-    const rest = Reflect.getMetadata('VALIDATE_DECORATOR', target.constructor) ?? [];
+    const rest =
+        Reflect.getMetadata('VALIDATE_DECORATOR', target.constructor) ?? [];
     Reflect.defineMetadata(
-        'VALIDATE_DECORATOR', rest.concat(rule),
-        target.constructor,
+        'VALIDATE_DECORATOR',
+        rest.concat(rule),
+        target.constructor
     );
 }
 
@@ -33,16 +35,22 @@ export function minMaxLength(min = 0, max = Infinity) {
     };
 }
 
-export function DTOValidator<R extends Error>(getError?: (message: string) => R) {
-    const makeError = getError ?? function (msg: string) {
-        return new Error(msg);
-    };
-    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
+export function DTOValidator<R extends Error>(
+    getError?: (message: string) => R
+) {
+    const makeError =
+        getError ??
+        function (msg: string) {
+            return new Error(msg);
+        };
+    return function <T extends { new (...args: any[]): {} }>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
                 super(...args);
-                const validations = Reflect.getMetadata('VALIDATE_DECORATOR', constructor) ?? [];
-                const invalid = validations.filter(validation => {
+                const validations =
+                    Reflect.getMetadata('VALIDATE_DECORATOR', constructor) ??
+                    [];
+                const invalid = validations.filter((validation) => {
                     return !validation.validate(this[validation.propertyKey]);
                 });
                 if (invalid.length) {
@@ -50,5 +58,5 @@ export function DTOValidator<R extends Error>(getError?: (message: string) => R)
                 }
             }
         };
-    }
+    };
 }

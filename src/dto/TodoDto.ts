@@ -1,6 +1,10 @@
-import {ITodo} from "../structs/todo/todo";
-import {DTOValidator, minMaxLength, required} from "../framework/dto/validators";
-import {ApiException} from "../framework/exceptions/exceptions";
+import { ITodo } from '../structs/todo/todo';
+import {
+    DTOValidator,
+    minMaxLength,
+    required,
+} from '../framework/dto/validators';
+import { ApiException } from '../framework/exceptions/exceptions';
 
 @DTOValidator(ApiException.userError)
 export class TodoDto implements ITodo {
@@ -11,7 +15,7 @@ export class TodoDto implements ITodo {
     id: number;
     @required
     @minMaxLength(3, 250)
-    title: string
+    title: string;
     @minMaxLength(3, 250)
-    description: string
+    description: string;
 }

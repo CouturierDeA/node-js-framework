@@ -1,18 +1,20 @@
-import {ITodo, ITodoPayload} from "../../structs/todo/todo";
-import {read, write, watch, unwatch} from "../../json-db/source";
-import {Component} from "../../framework/component";
-import {ApiException} from "../../framework/exceptions/exceptions";
-import {jsonToString, stringToJson} from "../../framework/dto/Serializable";
+import { ITodo, ITodoPayload } from '../../structs/todo/todo';
+import { read, write, watch, unwatch } from '../../json-db/source';
+import { Component } from '../../framework/component';
+import { ApiException } from '../../framework/exceptions/exceptions';
+import { jsonToString, stringToJson } from '../../framework/dto/Serializable';
 
 @Component()
 export class TodoRepository {
-    src: string = 'todo-list.json'
+    src: string = 'todo-list.json';
 
     async getTodoList(title?: string) {
         const res: ITodo[] = await this.readTodoList();
-        return res.filter(todo => {
+        return res.filter((todo) => {
             if (!title) return true;
-            return todo.title?.trim().toLowerCase() === title?.trim().toLowerCase()
+            return (
+                todo.title?.trim().toLowerCase() === title?.trim().toLowerCase()
+            );
         });
     }
 
@@ -27,43 +29,45 @@ export class TodoRepository {
 
     async getTodo(id: number) {
         const todoList = await this.getTodoList();
-        return todoList?.find(todo => todo.id === id);
+        return todoList?.find((todo) => todo.id === id);
     }
 
     async addTodo(todo: ITodoPayload) {
-        const todoList = await this.getTodoList()
+        const todoList = await this.getTodoList();
         const newTodo: ITodo = {
             ...todo,
             id: this.generateId(todoList),
-        }
-        const newTodoList = [...todoList, newTodo]
+        };
+        const newTodoList = [...todoList, newTodo];
         await this.writeTodoList(newTodoList);
-        return newTodo
+        return newTodo;
     }
 
     async editTodo(todo: ITodo) {
         const todoList = await this.getTodoList();
-        const index = todoList.findIndex(todoI => todoI.id === todo.id);
+        const index = todoList.findIndex((todoI) => todoI.id === todo.id);
         todoList.splice(index, 1, todo);
         await this.writeTodoList(todoList);
-        return todo
+        return todo;
     }
 
     async deleteTodo(id: number) {
         const todoList = await this.getTodoList();
-        const newTodoList = todoList.filter(todo => todo.id !== id);
+        const newTodoList = todoList.filter((todo) => todo.id !== id);
         await this.writeTodoList(newTodoList);
         return todoList.length - newTodoList.length;
     }
 
     async todoExist(id: number) {
         const todo = await this.getTodo(id);
-        return !!todo
+        return !!todo;
     }
 
     async findTodoWithTitle(title?: string, entityId?: number) {
         const todoList = await this.getTodoList();
-        return todoList.find(todo => todo.id !== entityId && todo.title === title)
+        return todoList.find(
+            (todo) => todo.id !== entityId && todo.title === title
+        );
     }
 
     private generateId(todoList: ITodo[]) {
@@ -75,7 +79,7 @@ export class TodoRepository {
             if (guard > todoList.length + 1) {
                 throw ApiException.internal('Todo list Id generates to long');
             }
-        } while (todoList.some(tI => tI.id === id));
+        } while (todoList.some((tI) => tI.id === id));
         return id;
     }
 

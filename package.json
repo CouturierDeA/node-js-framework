@@ -1,31 +1,32 @@
 {
-  "name": "spring-express",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/app.js",
-  "scripts": {
-    "compile": "tsc --watch",
-    "serve": "node --watch dist/app.js",
-    "serveTs": "node --watch --experimental-strip-types src/app.ts",
-    "type-check": "tsc --noEmit",
-    "build": "tsc",
-    "test": "jest --watchAll",
-    "run": "node dist/app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^24.2.1",
-    "jest": "^30.0.5",
-    "typescript": "5.9.2"
-  },
-  "dependencies": {
-    "@types/jest": "^30.0.0",
-    "reflect-metadata": "^0.2.2",
-    "ts-jest": "^29.4.1"
-  },
-  "engines": {
-    "node": ">=23"
-  },
-  "packageManager": "yarn@1.22.1+sha512.84bec57763ecbf87ce884fc98d550b0e0f8b7241b4425ec83d4879c160bfe1412be96f9e17e5551167d1bba43ba9b3a7aa4efea98ec25d84922c17c92321255c"
+    "name": "spring-express",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/app.js",
+    "scripts": {
+        "compile": "tsc --watch",
+        "serve": "node --watch dist/app.js",
+        "type-check": "tsc --noEmit",
+        "build": "tsc",
+        "test": "jest --watchAll",
+        "run": "node dist/app.js",
+        "format": "prettier --write ."
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^24.2.1",
+        "jest": "^30.0.5",
+        "typescript": "5.9.2"
+    },
+    "dependencies": {
+        "@types/jest": "^30.0.0",
+        "prettier": "^3.6.2",
+        "reflect-metadata": "^0.2.2",
+        "ts-jest": "^29.4.1"
+    },
+    "engines": {
+        "node": ">=23"
+    },
+    "packageManager": "yarn@1.22.1+sha512.84bec57763ecbf87ce884fc98d550b0e0f8b7241b4425ec83d4879c160bfe1412be96f9e17e5551167d1bba43ba9b3a7aa4efea98ec25d84922c17c92321255c"
 }

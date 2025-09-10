@@ -1,16 +1,17 @@
 import GSX from '../framework/gsx';
-import {ITodo} from '../structs/todo/todo';
+import { ITodo } from '../structs/todo/todo';
 
-type TodoFormProps = { todo?: ITodo, action: string, disabled?: boolean, title?: string };
+type TodoFormProps = {
+    todo?: ITodo;
+    action: string;
+    disabled?: boolean;
+    title?: string;
+};
 
-export function TodoForm({todo, action, title = 'Add todo'}: TodoFormProps) {
+export function TodoForm({ todo, action, title = 'Add todo' }: TodoFormProps) {
     return (
         <div>
-            <form
-                className="todo-form"
-                method={'POST'}
-                action={action}
-            >
+            <form className="todo-form" method={'POST'} action={action}>
                 <p>{title}</p>
                 <fieldset>
                     <input
@@ -38,5 +39,5 @@ export function TodoForm({todo, action, title = 'Add todo'}: TodoFormProps) {
                 </fieldset>
             </form>
         </div>
-    )
+    );
 }

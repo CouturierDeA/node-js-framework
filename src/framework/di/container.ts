@@ -1,4 +1,4 @@
-import {DependencyComponent, DepKey} from "../app";
+import { DependencyComponent, DepKey } from '../app';
 
 export class DiContainer<T = DependencyComponent> {
     depInstances = new Map<DepKey, T>();

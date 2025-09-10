@@ -1,46 +1,46 @@
-import {extname} from "path";
+import { extname } from 'path';
 
 import {
     Http2ServerRequest,
     Http2ServerResponse,
     IncomingHttpHeaders,
     ServerHttp2Stream,
-} from "http2";
-import {ApiException} from "../../exceptions/exceptions";
-import {OutgoingHttpHeaders} from "http";
-import {RequestEntity} from "../../entities/RequestEntity";
-import {ResponseEntity} from "../../entities/ResponseEntity";
-import {promises} from "fs";
-import {sanitizePath} from "../../utils";
+} from 'http2';
+import { ApiException } from '../../exceptions/exceptions';
+import { OutgoingHttpHeaders } from 'http';
+import { RequestEntity } from '../../entities/RequestEntity';
+import { ResponseEntity } from '../../entities/ResponseEntity';
+import { promises } from 'fs';
+import { sanitizePath } from '../../utils';
 
 export interface Sandbox<T = ServerHttp2Stream> {
-    route: string | RegExp
-    params: object
-    query: object
-    getBodySafe?: () => Promise<any>
-    respondWithFile?: (reqPath: string) => Promise<number>
-    mixHeaders: (headers: OutgoingHttpHeaders) => OutgoingHttpHeaders
-    stream: T,
-    commonHeaders: OutgoingHttpHeaders
-    request: RequestEntity
-    response: ResponseEntity
-    incomingHeaders: IncomingHttpHeaders
-    method: string
+    route: string | RegExp;
+    params: object;
+    query: object;
+    getBodySafe?: () => Promise<any>;
+    respondWithFile?: (reqPath: string) => Promise<number>;
+    mixHeaders: (headers: OutgoingHttpHeaders) => OutgoingHttpHeaders;
+    stream: T;
+    commonHeaders: OutgoingHttpHeaders;
+    request: RequestEntity;
+    response: ResponseEntity;
+    incomingHeaders: IncomingHttpHeaders;
+    method: string;
 }
 
 export const serializer = {
-    'number': (num: number) => num.toString(),
-    'string': (str: string) => str,
-    'boolean': (bool: boolean) => JSON.stringify(bool),
-    'object': (data: object) => JSON.stringify(data),
-    'undefined': (data: undefined) => data,
-}
+    number: (num: number) => num.toString(),
+    string: (str: string) => str,
+    boolean: (bool: boolean) => JSON.stringify(bool),
+    object: (data: object) => JSON.stringify(data),
+    undefined: (data: undefined) => data,
+};
 
 export const serialize = (data: any) => {
     const dataType = typeof data;
-    const exec = serializer[dataType] || serializer.undefined
-    return exec(data)
-}
+    const exec = serializer[dataType] || serializer.undefined;
+    return exec(data);
+};
 
 export const mimeTypes = {
     // Text files
@@ -107,11 +107,14 @@ export const mimeTypes = {
     '.pdf': 'application/pdf',
     '.epub': 'application/epub+zip',
     '.xls': 'application/vnd.ms-excel',
-    '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    '.xlsx':
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     '.doc': 'application/msword',
-    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    '.docx':
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     '.ppt': 'application/vnd.ms-powerpoint',
-    '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    '.pptx':
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     '.odt': 'application/vnd.oasis.opendocument.text',
     '.ods': 'application/vnd.oasis.opendocument.spreadsheet',
 
@@ -132,14 +135,14 @@ export const mimeTypes = {
     '.torrent': 'application/x-bittorrent',
     '.xhtml': 'application/xhtml+xml',
     '.yml': 'text/yaml',
-}
+};
 
 export const mixHeaders = (headers, addHeaders?) => {
     return {
         ...headers,
-        ...(addHeaders || {})
-    }
-}
+        ...(addHeaders || {}),
+    };
+};
 
 export function handleApiError(
     stream: ServerHttp2Stream,
@@ -150,16 +153,21 @@ export function handleApiError(
     path,
     addHeaders: OutgoingHttpHeaders
 ) {
-    const {message} = exception;
-    let status = (exception as ApiException).status || 500
+    const { message } = exception;
+    let status = (exception as ApiException).status || 500;
 
-    const headers = mixHeaders({
-        ":status": status,
-    }, addHeaders)
+    const headers = mixHeaders(
+        {
+            ':status': status,
+        },
+        addHeaders
+    );
     stream.respond(headers);
-    stream.end(serialize({
-        message
-    }));
+    stream.end(
+        serialize({
+            message,
+        })
+    );
 }
 
 export function parseBody(stream: ServerHttp2Stream) {
@@ -173,16 +181,16 @@ export function parseBody(stream: ServerHttp2Stream) {
             resolve(body);
         });
         stream.on('error', function (err) {
-            reject(err)
+            reject(err);
         });
-    })
+    });
 }
 
 export async function respondWithFile(
     stream: ServerHttp2Stream,
     req: Http2ServerRequest | undefined,
     res: Http2ServerResponse | undefined,
-    unsafePath: string,
+    unsafePath: string
 ): Promise<number> {
     const reqPath = sanitizePath(unsafePath);
     const mime = extname(reqPath);
@@ -192,18 +200,20 @@ export async function respondWithFile(
         const rejection = () => reject(ApiException.notFound(notFound));
         if (!reqPath) rejection();
         if (!stream) {
-            promises.readFile(reqPath)
-                .then(res.end)
-                .catch(rejection)
+            promises.readFile(reqPath).then(res.end).catch(rejection);
             return;
         }
-        stream.respondWithFile(reqPath, {
-            'content-type': contentType
-        }, {
-            onError: rejection
-        });
+        stream.respondWithFile(
+            reqPath,
+            {
+                'content-type': contentType,
+            },
+            {
+                onError: rejection,
+            }
+        );
         stream.on('finish', () => {
-            resolve(1)
-        })
-    })
+            resolve(1);
+        });
+    });
 }

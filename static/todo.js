@@ -4,5 +4,5 @@ eventSource.addEventListener('todo-list-updated', (event) => {
     console.log('todo-list-updated');
     setTimeout(() => {
         location.reload();
-    }, 200)
+    }, 200);
 });
