@@ -1,4 +1,4 @@
-import { join } from 'path';
+import {join} from 'path';
 import {CoreRoute} from "../app";
 import {getMappingMeta} from "../utils/metadata";
 import {RouteCtrl} from "../controller/controller/controller";
@@ -15,6 +15,7 @@ export class RouteCreator<T> {
         this.di = di;
         this.options = options;
     }
+
     controllerCreator: InstanceCreator<T>;
     di: DiContainer;
     options?: { url?: string };

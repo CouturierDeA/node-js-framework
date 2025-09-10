@@ -1,4 +1,4 @@
-import {extname, join} from "path";
+import {extname} from "path";
 
 import {
     Http2ServerRequest,

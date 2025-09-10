@@ -13,6 +13,7 @@ export class RequestEntity {
     req?: Http2ServerRequest;
     res?: Http2ServerResponse;
     incomingHeaders?: IncomingHttpHeaders;
+
     constructor(
         sandBox: Sandbox,
         req?: Http2ServerRequest,

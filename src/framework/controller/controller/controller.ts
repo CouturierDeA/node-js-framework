@@ -26,9 +26,6 @@ export function ControllerDecorator(
     }
 }
 
-
-export type ControllerDecoratorOptions<T> = {}
-
 export type RouteCtrlInitialized<T> = {
     routes: CoreRoute<T>[],
     ctrlInstance: {},

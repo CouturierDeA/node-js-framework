@@ -24,7 +24,7 @@ export const onHttp2Stream = async (
     streamParam: ServerHttp2Stream | undefined,
     req: Http2ServerRequest | undefined,
     res: Http2ServerResponse | undefined,
-    app: App<Http2SecureServer>,
+    app: App,
     commonHeaders?: IncomingHttpHeaders
 ) => {
     const path = req?.url || commonHeaders[HTTP2_HEADER_PATH] as string;

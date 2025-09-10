@@ -19,6 +19,7 @@ export class ResponseEntity {
         this.stream = req?.stream || stream
         this.id = this.stream?.id
     }
+
     private sandBox: Sandbox;
     private req?: Http2ServerRequest;
     private res?: Http2ServerResponse;

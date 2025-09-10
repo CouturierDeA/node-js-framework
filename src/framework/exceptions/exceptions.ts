@@ -6,7 +6,6 @@ const {
     HTTP_STATUS_NOT_FOUND,
     HTTP_STATUS_UNAUTHORIZED,
     HTTP_STATUS_INTERNAL_SERVER_ERROR,
-    HTTP_STATUS_BAD_REQUEST
 } = constants;
 
 export class ApiException extends Error {
@@ -15,6 +14,7 @@ export class ApiException extends Error {
         this.message = message;
         this.status = status;
     }
+
     message: string;
     status: number;
 

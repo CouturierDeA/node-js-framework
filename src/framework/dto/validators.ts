@@ -5,7 +5,7 @@ type Rule<T = string> = {
 }
 
 function reflectValidator(target: Object, rule: Rule) {
-    const rest = Reflect.getMetadata('VALIDATE_DECORATOR',  target.constructor) ?? [];
+    const rest = Reflect.getMetadata('VALIDATE_DECORATOR', target.constructor) ?? [];
     Reflect.defineMetadata(
         'VALIDATE_DECORATOR', rest.concat(rule),
         target.constructor,
@@ -20,7 +20,7 @@ export function required(target: object, propertyKey: string) {
     });
 }
 
-export function minMaxLength(min  = 0, max = Infinity) {
+export function minMaxLength(min = 0, max = Infinity) {
     return function (target: Object, propertyKey: string) {
         reflectValidator(target, {
             rule: 'minMax',
@@ -37,7 +37,7 @@ export function DTOValidator<R extends Error>(getError?: (message: string) => R)
     const makeError = getError ?? function (msg: string) {
         return new Error(msg);
     };
-    return function<T extends { new (...args: any[]): {} }>(constructor: T) {
+    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
         return class extends constructor {
             constructor(...args: any[]) {
                 super(...args);

@@ -61,17 +61,6 @@ describe('test params matcher ', () => {
         const res = parseParamsCurly(test.path, test.input)
         expect(res).toEqual(test.output)
     })
-    //
-    // it(`Parses zero params from /pictures/[.*?.(?:jpeg|png)]`, () => {
-    //     const test = {
-    //         path: '/pictures/[.*?.(?:jpeg|png)]',
-    //         input: "/pictures/photo.png",
-    //         options: {},
-    //         output: {
-    //             uid: '2',
-    //         }
-    //     }
-    //     const res = parseParamsCurly(test.path, test.input)
-    //     expect(res).toEqual(test.output)
-    // })
+
+    it.todo('Parses params from /route/[.*?.(?:jpeg|png)]')
 })

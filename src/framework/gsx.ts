@@ -22,7 +22,7 @@ function createElement(name: string | Function, props: { [id: string]: string | 
     return `<${name}${attrs}>${joinedContent}</${name}>`;
 }
 
-export const GSX = {
+const GSX = {
     createElement,
 };
 

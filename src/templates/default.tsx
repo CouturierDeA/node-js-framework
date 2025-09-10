@@ -25,19 +25,6 @@ export function HtmlPage(
     )
 }
 
-
-export function TodoPage(
-    props: HtmlPageProps,
-    ...content: typeof GSX[]
-) {
-    return (
-        <HtmlPage {...props} scripts={['/todo.js']}>
-            <GoTo to="/"/>
-            {...content}
-        </HtmlPage>
-    )
-}
-
 export function ErrorPage(
     props: HtmlPageProps,
     ...content: typeof GSX[]

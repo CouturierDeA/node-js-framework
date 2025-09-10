@@ -9,17 +9,16 @@ import {RouteCtrl} from "./controller/controller/controller";
 import {InstanceCreator} from "./utils/instance-creator";
 import {MappingType} from "./controller/controller";
 import {onHttp2Stream} from "./http2-server-listener";
+import {
+    Http2ServerRequest, Http2ServerResponse,
+    IncomingHttpHeaders,
+    ServerHttp2Stream,
+} from "http2";
 
 export interface RouteController {
     (sandbox: Sandbox, stream?: ServerHttp2Stream): Promise<any> | any
 }
 
-import {
-    constants,
-    Http2ServerRequest, Http2ServerResponse,
-    IncomingHttpHeaders,
-    ServerHttp2Stream,
-} from "http2";
 import {Sandbox} from "./core/http-utils/http-utils";
 
 export interface DependencyComponent<T extends { new(...args: any[]): {} } = any> {
@@ -37,11 +36,10 @@ export type CoreRoute<T> = {
 
 export type IRoute = CoreRoute<any>
 
-export type DepKey<T = string | Symbol> = string
+export type DepKey = string // Todo: add ability to use Injection tokens
 
-export class App<T> {
+export class App {
     private routes: IRoute[] // Todo: move the creation of objects, as well as routing, to a separate component.
-    // затем в отдельный модуль
     private di = new DiContainer();
     private controllers = []
     private controllerInstances: RouteCtrl<any>[] = []

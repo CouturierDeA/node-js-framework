@@ -5,17 +5,17 @@ import {
     getMappingMeta
 } from "./metadata";
 import {DiContainer} from "../di/container";
-import { CREATED_HOOK_KEY } from '../symbols';
+import {CREATED_HOOK_KEY} from '../symbols';
 
 export interface InstanceCreator<T> {
     instantiate: (di: DiContainer) => Promise<T>,
     constructorName: string
 }
 
-function selfish (target: unknown) {
+function selfish(target: unknown) {
     const cache = new WeakMap();
     const handler = {
-        get (target, key) {
+        get(target, key) {
             const value = Reflect.get(target, key);
             if (typeof value !== 'function') {
                 return value;

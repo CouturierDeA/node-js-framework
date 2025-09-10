@@ -1,10 +1,9 @@
 import {defineAutoWired, defineComponentDecorator, defineComponentInstanceCreator} from "../utils/metadata";
 import {instanceCreator} from "../utils/instance-creator";
-import { CREATED_HOOK_KEY } from '../symbols';
+import {CREATED_HOOK_KEY} from '../symbols';
 
 export type ComponentDecoratorOptions = {
-    lazy?: boolean
-    isSingleton?: boolean
+    lazy?: boolean // Todo
 }
 
 export function Component(options?: ComponentDecoratorOptions) {
@@ -19,7 +18,7 @@ export function Component(options?: ComponentDecoratorOptions) {
 
 export function Created() {
     return function (target: any, propertyKey: string) {
-        Reflect.defineMetadata(CREATED_HOOK_KEY,  target[propertyKey], target);
+        Reflect.defineMetadata(CREATED_HOOK_KEY, target[propertyKey], target);
         target._$created = async function () {
             return target[propertyKey].call(...arguments);
         }

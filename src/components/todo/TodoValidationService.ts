@@ -8,7 +8,7 @@ export class TodoValidationService {
     @Autowired()
     todoRepository: TodoRepository
 
-    async checkTodoExist (id: ITodo['id']) {
+    async checkTodoExist(id: ITodo['id']) {
         const hasTodo = await this.todoRepository.todoExist(id);
         if (!hasTodo) {
             throw ApiException.userError(`Cant Find todo with id ${id}`)

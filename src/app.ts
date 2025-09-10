@@ -1,6 +1,6 @@
-import { createSecureServer, SecureServerOptions } from "http2";
-import { getCredentials } from "./cert.read";
-import { init } from './app.init'
+import {createSecureServer, SecureServerOptions} from "http2";
+import {getCredentials} from "./cert.read";
+import {init} from './app.init'
 import dns from 'dns';
 // sets 127.0.0.1 as default host instead of localhost
 dns.setDefaultResultOrder('ipv4first');

@@ -7,6 +7,7 @@ export class TodoDto implements ITodo {
     constructor(todo: TodoDto) {
         Object.assign(this, todo);
     }
+
     id: number;
     @required
     @minMaxLength(3, 250)

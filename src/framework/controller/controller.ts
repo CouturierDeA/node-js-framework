@@ -6,9 +6,10 @@ import {
     defineArgumentInjectionsOnConstructor,
     defineMappingMeta,
 } from "../utils/metadata";
-import { ApiException } from '../exceptions/exceptions';
-import { getParamNames } from '../utils/getParamNames';
+import {ApiException} from '../exceptions/exceptions';
+import {getParamNames} from '../utils/getParamNames';
 import {qsToJson, stringToJson} from "../dto/Serializable";
+
 export const Controller = ControllerDecorator;
 export type MappingType = 'executor' | 'middleware'
 
@@ -121,7 +122,7 @@ export function QueryParam(key?: string) {
 
 export function QueryParams(options?: { key?: string, serializer?: StringConstructor | NumberConstructor }) {
     return function (target: any, propertyKey: string, parameterIndex: number) {
-        const { key, serializer } = options || {};
+        const {key, serializer} = options || {};
         const defaultSerializer = serializer || String;
         const serialize = Reflect.getMetadata('design:paramtypes', target, propertyKey)[parameterIndex];
         const keyName: string = key || Object.values(getParamNames(target[propertyKey]))[parameterIndex]

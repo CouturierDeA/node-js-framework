@@ -6,7 +6,7 @@ import {
     Response,
 } from "../../framework/controller/controller";
 
-import { join } from "node:path";
+import {join} from "node:path";
 
 import GSX from "../../framework/gsx";
 
@@ -47,22 +47,15 @@ export class CommonController {
     ) {
         return <HtmlPage title={'Test multiple query params'}>
             <h3>Queries:</h3>
-            <div>test { test?.join(',') }</div>
-            <div>id { id?.join(',') }</div>
+            <div>test {test?.join(',')}</div>
+            <div>id {id?.join(',')}</div>
         </HtmlPage>
     }
-
-    // @GetMapping('/')
-    // async getMain(
-    //     @Response() res: ResponseEntity,
-    // ) {
-    //     await res.respondWithFile('/static/index.html')
-    // }
 
     // @Created()
     // async created() {
     //     await sleep(5_000, time => {
-    //         console.log(`Waiting for asynchronous initialization of CommonController... ${time / 1000} s`)
+    //         console.log(`Waiting for asynchronous initialization of CommonController... ${time / 1000}s`)
     //         return 1000;
     //     })
     // }

@@ -49,7 +49,7 @@ export function defineArgumentInjectionsOnConstructor<T>(
     target: any, propertyKey: string, parameterIndex: number, argInjector: ArgumentsInjector<T>
 ) {
     let argumentInjections = getArgumentInjectionsFromConstructor<T>(target.constructor)
-    const newArjInjConstr:ArgsInjectionOnConstructor<T> = argumentInjections.find(arg => arg.propertyKey === propertyKey) || {
+    const newArjInjConstr: ArgsInjectionOnConstructor<T> = argumentInjections.find(arg => arg.propertyKey === propertyKey) || {
         propertyKey,
         args: {}
     };
