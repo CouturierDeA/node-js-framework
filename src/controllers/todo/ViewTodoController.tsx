@@ -7,7 +7,7 @@ import {
     FormBody,
 } from '../../framework/controller/controller';
 import { Autowired } from '../../framework/component/';
-import GSX from '../../framework/gsx';
+import TSX from '../../framework/tsx';
 import { ErrorPage, GoTo } from '../../templates/default';
 import { TodoItem, TodoList } from '../../templates/todo-list';
 import { TodoForm } from '../../templates/todo-form';

@@ -1,7 +1,7 @@
-import GSX from '../framework/gsx';
+import TSX from '../framework/tsx';
 import { ITodo } from '../structs/todo/todo';
 
-export function TodoItem({ todo }: { todo: ITodo }, content?: typeof GSX) {
+export function TodoItem({ todo }: { todo: ITodo }, content?: typeof TSX) {
     return (
         <>
             <h3>{content || <a href={`/todo/${todo.id}`}>{todo.title}</a>}</h3>

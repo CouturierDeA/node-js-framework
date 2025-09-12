@@ -1,4 +1,4 @@
-import GSX from '../framework/gsx';
+import TSX from '../framework/tsx';
 
 export type HtmlPageProps = {
     title: string;
@@ -7,7 +7,7 @@ export type HtmlPageProps = {
     scripts?: string[];
 };
 
-export function HtmlPage(props: HtmlPageProps, ...content: (typeof GSX)[]) {
+export function HtmlPage(props: HtmlPageProps, ...content: (typeof TSX)[]) {
     const { title, lang, charset, scripts } = props || {};
     return (
         <html lang={lang || 'en'}>
@@ -24,11 +24,11 @@ export function HtmlPage(props: HtmlPageProps, ...content: (typeof GSX)[]) {
     );
 }
 
-export function ErrorPage(props: HtmlPageProps, ...content: (typeof GSX)[]) {
+export function ErrorPage(props: HtmlPageProps, ...content: (typeof TSX)[]) {
     return <HtmlPage {...props}>{...content}</HtmlPage>;
 }
 
-export function GoTo({ to }: { to: string }, content?: typeof GSX) {
+export function GoTo({ to }: { to: string }, content?: typeof TSX) {
     return (
         <div>
             <a href={to}>{content || 'Go back'}</a>

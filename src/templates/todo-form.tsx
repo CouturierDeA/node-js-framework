@@ -1,4 +1,4 @@
-import GSX from '../framework/gsx';
+import TSX from '../framework/tsx';
 import { ITodo } from '../structs/todo/todo';
 
 type TodoFormProps = {

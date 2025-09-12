@@ -9,7 +9,7 @@ import {
 
 import { join } from 'node:path';
 
-import GSX from '../../framework/gsx';
+import TSX from '../../framework/tsx';
 
 import { ResponseEntity } from '../../framework/entities/ResponseEntity';
 import { GoTo, HtmlPage } from '../../templates/default';

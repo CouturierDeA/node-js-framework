@@ -24,8 +24,8 @@ function createElement(
     return `<${name}${attrs}>${joinedContent}</${name}>`;
 }
 
-const GSX = {
+const Tsx = {
     createElement,
 };
 
-export default GSX;
+export default Tsx;

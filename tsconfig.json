@@ -11,7 +11,7 @@
         "outDir": "dist",
         "baseUrl": "./",
         "jsx": "react",
-        "reactNamespace": "GSX",
+        "reactNamespace": "TSX",
         "types": ["jest", "node"]
     },
     "exclude": ["node_modules", "tests", "**/*.spec.ts", "**/*.spec.tsx"],
